@@ -252,8 +252,15 @@ def extract_info_in_symmetry_block_lt(lt):
                     if item.strip() not in tmplt2:
                         tmplt2.append(item.strip())
             else:
-                tmplt=element[i].split(' ')
-                tmplt = filter(None, tmplt)
+                tmplt_check = element[i].split(' ')
+                tmplt_check = filter(None, tmplt_check)
+                tmplt = []
+                for item in tmplt_check:
+                    if len(item) > 17:
+                        tmplt.append(item[:9])
+                        tmplt.append(item[9:])
+                    else:
+                        tmplt.append(item)
                 tmplt3.append(tmplt[-len(tmplt1):])
                 tmplt4.append(tmplt[0:-len(tmplt1)])
         for item in tmplt4:
@@ -271,7 +278,7 @@ def extract_info_in_symmetry_block_lt(lt):
                         one_MO_coe_dict[principal_AG_scan(count,item)]=one_MO_coe
             one_irrep_lt[3].append(one_MO_coe_dict)
         all_irrep_lt.append(one_irrep_lt)
-        #initialize everything that's used for next irrep processing
+        #initialize everything that's been used for next irrep processing
         tmplt1=[]
         tmplt2=[]
         tmplt3=[]
